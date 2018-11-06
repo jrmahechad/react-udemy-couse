@@ -5,7 +5,7 @@ import Backdrop from '../Backdrop/Backdrop';
 
 class Modal extends Component {
   shouldComponentUpdate = (nextProps, nextState) => {
-    return nextProps.show !== this.props.show;
+    return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
   };
 
   //WARNING! To be deprecated in React v17. Use componentDidUpdate instead.
