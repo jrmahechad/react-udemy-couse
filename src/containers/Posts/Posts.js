@@ -1,0 +1,52 @@
+import React, { Component } from 'react';
+import axios from '../../axios';
+import Post from '../../components/Post/Post';
+import './Posts.css';
+
+export default class Posts extends Component {
+  state = {
+    posts: []
+  };
+
+  postSelectedHandler = id => {
+    this.setState({ selectedPostId: id });
+  };
+
+  componentDidMount() {
+    console.log(this.props);
+    axios
+      .get('/posts')
+      .then(response => {
+        console.log('[GET] all', response);
+        const posts = response.data.slice(0, 4);
+        const updatedPosts = posts.map(p => {
+          return {
+            ...p,
+            author: 'Julian'
+          };
+        });
+        this.setState({ posts: updatedPosts });
+      })
+      .catch(error => {
+        console.log(error);
+        //this.setState({ error: true });
+      });
+  }
+
+  render() {
+    let posts = <p style={{ textAlign: 'center' }}>Something went wrong!!</p>;
+    if (!this.state.error) {
+      posts = this.state.posts.map(p => {
+        return (
+          <Post
+            key={p.id}
+            title={p.title}
+            author={p.author}
+            clicked={() => this.postSelectedHandler(p.id)}
+          />
+        );
+      });
+    }
+    return <section className="Posts">{posts}</section>;
+  }
+}
