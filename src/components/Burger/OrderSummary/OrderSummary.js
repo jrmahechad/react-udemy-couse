@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button';
 class OrderSummary extends Component {
   //This could be a funcionat component, doesn't have to be a class
   componentWillUpdate(nextProps, nextState) {
-    console.log("[OrderSummary] Will update")
+    //console.log("[OrderSummary] Will update")
   }
 
   render (){
@@ -30,7 +30,7 @@ class OrderSummary extends Component {
     );
   }
 
-  
+
 };
 
 export default OrderSummary;

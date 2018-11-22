@@ -28,12 +28,12 @@ export const purchaseBurger = (orderData, token) => {
     axios
       .post('/orders.json?auth='+ token, orderData)
       .then(response => {
-        console.log(response.data);
+        //console.log(response.data);
         dispatch(purchaseBurguerSuccess(response.data.name, orderData));
       })
       .catch(error => {
         dispatch(purchaseBurguerFail(error));
-        console.log(error);
+        //console.log(error);
       });
   };
 };
@@ -71,7 +71,7 @@ export const fetchOrders = (token, userId) => {
     axios
       .get('/orders.json' + queryParams)
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         const fetchedOrders = [];
         for (let key in res.data) {
           fetchedOrders.push({
@@ -82,7 +82,7 @@ export const fetchOrders = (token, userId) => {
         dispatch(fetchOrdersSuccess(fetchedOrders));
       })
       .catch(error => {
-        console.log(error);
+        //console.log(error);
         dispatch(fetchOrdersFail(error));
       });
   };

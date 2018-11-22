@@ -10,7 +10,7 @@ class Modal extends Component {
 
   //WARNING! To be deprecated in React v17. Use componentDidUpdate instead.
   componentWillUpdate(nextProps, nextState) {
-    console.log("[Modal] Will update")
+    //console.log("[Modal] Will update")
   }
 
   render() {
