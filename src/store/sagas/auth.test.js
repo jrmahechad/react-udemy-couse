@@ -7,6 +7,7 @@ import {
   authUserSaga
 } from './auth';
 import * as actions from '../actions/index';
+import axios from 'axios';
 
 const mockLocalStorage = ()=> {
   global.localStorage = {
@@ -70,8 +71,30 @@ describe('init ingredients saga', () => {
     const token = generator.next().value;
     generator.next(token);
     expect(generator.next().value).toEqual(put(actions.logout()));
-
-
-
   })
+
+  it('should log in a valid user', () => {
+    const generator = cloneableGenerator(authUserSaga)(actions);
+    mockLocalStorage();
+    const authData = {
+      email: 'email',
+      password: 'password',
+      returnSecureToken: true
+    };
+    const url ='http://myurl'
+    const fakeResponse= {data:{
+      idToken:'id_token',
+      localId: 'local_id',
+      expiresIn:1000000
+    }}
+    generator.next();
+    generator.next(call(axios.post,url, authData));
+    generator.next(fakeResponse)
+    generator.next();
+    generator.next();
+    generator.next();
+    expect(generator.next().value).toEqual(put(actions.authSuccess(fakeResponse.data.idToken, fakeResponse.data.localId)))
+
+
+  });
 });
